@@ -1,20 +1,20 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")("sk_test_51Jd7JRSBMhNsGas782zfKTFEId3LEER5hoUsX7LTwsboi3uo4Wt8L4LowM5ovzYQdQ58JmoNR6ocZcL2JBTN3apF00oW7p8Ul6");
 
 app.get('/', async (req, res) => {
-    console.log("Im here");
     try {
-        const paymentIntent = await stripe.paymentIntents.create({
+        await stripe.paymentIntents.create({
             amount: 10,
             currency: "usd",
         }).then((result) => {
             console.log(result);
+            res.send({client_secret: result.client_secret, err: null});
         }).catch((error) => {
             console.log(error);
+            res.send({client_secret: null, err: error});
         })
-        res.send({client_secret: paymentIntent.client_secret});
     }catch (error) {
         res.send(error);
     }
