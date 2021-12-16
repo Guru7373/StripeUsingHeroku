@@ -3,12 +3,21 @@ const app = express()
 const port = process.env.PORT || 3000
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-app.get('/', (req, res) => {
-  const paymentIntent = stripe.paymentIntents.create({
-    amount: 10,
-    currency: "USD",
-  });
-  res.status(200).send({client_secret: paymentIntent.client_secret});
+app.get('/', async (req, res) => {
+    console.log("Im here");
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: 10,
+            currency: "usd",
+        }).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error);
+        })
+        res.send({client_secret: paymentIntent.client_secret});
+    }catch (error) {
+        res.send(error);
+    }
 })
 
 app.listen(port, () => {
