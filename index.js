@@ -3,8 +3,8 @@ const app = express()
 const port = process.env.PORT || 3000
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-app.get('/', async (req, res) => {
-  const paymentIntent = await stripe.paymentIntents.create({
+app.get('/', (req, res) => {
+  const paymentIntent = stripe.paymentIntents.create({
     amount: 10,
     currency: "USD",
   });
