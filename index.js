@@ -1,12 +1,13 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const stripe = require("stripe")("sk_test_51Jd7JRSBMhNsGas782zfKTFEId3LEER5hoUsX7LTwsboi3uo4Wt8L4LowM5ovzYQdQ58JmoNR6ocZcL2JBTN3apF00oW7p8Ul6");
+const env = require('dotenv').config({path: '.env'});
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 app.get('/', async (req, res) => {
     try {
         await stripe.paymentIntents.create({
-            amount: 10,
+            amount: 20,
             currency: "usd",
         }).then((result) => {
             console.log(result);
