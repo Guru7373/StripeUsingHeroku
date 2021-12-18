@@ -9,6 +9,8 @@ app.get('/', async (req, res) => {
         await stripe.paymentIntents.create({
             amount: 20,
             currency: "usd",
+            description: "JEXtream Account Renewal",
+            payment_method_types: ['card'],
         }).then((result) => {
             console.log(result);
             res.send({client_secret: result.client_secret, err: null});
