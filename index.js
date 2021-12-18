@@ -7,13 +7,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 app.get('/', async (req, res) => {
     try {   
         await stripe.customers.create({
-            name: 'Guru',
+            name: 'Jenny Rosen',
             address: {
-                line1: '599 HMT Layout',
-                postal_code: '560097',
-                city: 'Bangalore',
-                state: 'Karnataka',
-                country: 'India',
+                line1: '510 Townsend St',
+                postal_code: '98140',
+                city: 'San Francisco',
+                state: 'CA',
+                country: 'US',
             },
         });
 
@@ -23,13 +23,13 @@ app.get('/', async (req, res) => {
             description: "JEXtream Account Renewal",
             payment_method_types: ['card'],
             shipping: {
-                name: 'Guru',
+                name: 'Jenny Rosen',
                 address: {
-                  line1: '599 HMT Layout',
-                  postal_code: '560097',
-                  city: 'Bangalore',
-                  state: 'Karnataka',
-                  country: 'India',
+                    line1: '510 Townsend St',
+                    postal_code: '98140',
+                    city: 'San Francisco',
+                    state: 'CA',
+                    country: 'US',
                 },
               },
         }).then((result) => {
